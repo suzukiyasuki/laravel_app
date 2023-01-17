@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="container d-flex">
     <aside class="sticky mr-3 h-75">
         <div class="clearfit" >
@@ -19,6 +18,9 @@
                     <label class="form-check-label" for="flexCheckChecked">カテゴリー２</label>
                 </div>
                 <button class="btn btn-outline-success" type="button" id="button-addon2"><i class="fas fa-search"></i> 検索</button>
+            </div>
+            <div class="mt-5">
+                <button type="button" class="btn btn-outline-secondary">いいねした商品のみ表示</button>
             </div>
             <div class="mt-5">
                 <button type="button" class="btn btn-outline-secondary">カート内</button>
@@ -105,19 +107,5 @@
     <p class="text-muted">Place sticky footer content here.</p>
   </div>
 </footer>
-
-    <div><a href="/item_detail">商品の詳細</a></div>
-    <div><a href="/top_login">ログイン後のトップ</a></div>
-    <div><a href="/auth.register">新規登録</a></div>
-    <div><a href="/like">いいねした商品のみ表示</a></div>
-    <div><a href="/cart">カート</a></div>
-    <div><a href="/complete">購入完了画面</a></div>
-    <div><a href="/detail_mypage">マイページ</a></div>
-    <div><a href="/edit_mypage">マイページ編集</a></div>
-    <div><a href="/addition">商品追加</a></div>
-    <div><a href="/edit_item">商品の編集</a></div>
-    <div><a href="/management">管理者ページ</a></div>
-    <div><a href="/management_user">管理者専用ユーザーページ</a></div>
-
 
 @endsection

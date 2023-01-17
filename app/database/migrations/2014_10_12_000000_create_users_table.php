@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', '255');
             $table->rememberToken();
-            $table->tinyInteger('role');
-            $table->integer('counts')->nulltable();
+            $table->tinyInteger('role')->default(0);
+            $table->integer('counts')->nullable();
             $table->timestamps();
         });
     }
