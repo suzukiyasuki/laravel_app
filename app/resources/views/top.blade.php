@@ -112,8 +112,6 @@
     <div><a href="/like">いいねした商品のみ表示</a></div>
     <div><a href="/cart">カート</a></div>
     <div><a href="/complete">購入完了画面</a></div>
-    <div><a href="/detail_mypage">マイページ</a></div>
-    <div><a href="/edit_mypage">マイページ編集</a></div>
     <div><a href="/addition">商品追加</a></div>
     <div><a href="/edit_item">商品の編集</a></div>
     <div><a href="/management">管理者ページ</a></div>
