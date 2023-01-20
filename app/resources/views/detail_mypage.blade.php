@@ -30,9 +30,9 @@
             <button type="submit" class="btn btn-danger">退会</button>
         </div>
     </form>
-    <div class="row justify-content-around mt-2">
-        <a href="{{ route('users.edit', ['user' => $id]) }}" class="btn btn-primary">編集</a>
-    </div>
+        <div class="row justify-content-around mt-2">
+            <a href="{{ route('users.edit', ['user' => $id]) }}" class="btn btn-primary">編集</a>
+        </div>
     <div class="row justify-content-around mt-2">
         <div class="col-md-4">
             <div class="card">

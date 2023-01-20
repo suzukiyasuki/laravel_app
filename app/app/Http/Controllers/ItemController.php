@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\item;
+use App\Category;
+use Illuminate\Support\Facades\Storage;
 
-class UserController extends Controller
+class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $id = Auth::id();
+        
 
-        return view('detail_mypage')->with(['id' => $id]);
+        return view('detail');
     }
 
     /**
@@ -27,7 +29,16 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        
+        // $id = Auth::id();
+
+        // $params = item::where('user_id', $id)->where('category_id', $id)->get();
+        
+            return view('create_item', [
+            'categories' => $categories,
+        ]);
+
     }
 
     /**
@@ -38,7 +49,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = new item;
+        
+        $item->amount = $request->amount;
+        $item->name = $request->name;
+        $item->text = $request->text;
+        $item->size = $request->size;
+        $item->user_id = $request->user_id;
+        $item->category_id = $request->category_id;
+        $path = $request->image->store('images');
+        $filename = basename($path);
+        $item->image = $filename;
+        
+        $item->save();
+
+        return redirect('/');
+
     }
 
     /**
@@ -49,7 +75,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('users');
     }
 
     /**
@@ -60,8 +86,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('edit_mypage')->with(['user' => $user]);
+
+        return view('/edit_item');
     }
 
     /**
@@ -73,13 +99,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-
-        $user->save();
-
-        return redirect()->route('users.index');
+        //
     }
 
     /**
@@ -90,9 +110,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
-
-        return redirect('/top');
+        //
     }
 }

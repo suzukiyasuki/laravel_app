@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\TopController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,45 +18,26 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset/{token}', 'Auth\ResetPasswordController@reset');
 
 Route::resource('users', 'UserController', ['only' => ['index', 'edit', 'update', 'destroy']]);
+Route::resource('items', 'itemController');
+
+Route::get('/', [TopController::class, 'index']);
+
 
 // koredeまずつくる
-Route::get('/', function () {
-    return view('top');
-});
 
-Route::get('/item_detail', function () {
-    return view('detail');
-});
-Route::get('/top', function () {
-    return view('top');
-});
 Route::get('/top_login', function () {
     return view('top_login');
 });
 Route::get('/like', function () {
     return view('like');
 });
-// Route::get('/register', function () {
-//     return view('register');
-// });
 Route::get('/cart', function () {
     return view('cart');
 });
 Route::get('/complete', function () {
     return view('complete');
 });
-Route::get('/detail_mypage', function () {
-    return view('detail_mypage');
-});
-Route::get('/edit_mypage', function () {
-    return view('edit_mypage');
-});
-Route::get('/addition', function () {
-    return view('addition');
-});
-Route::get('/edit_item', function () {
-    return view('edit_item');
-});
+
 Route::get('/management', function () {
     return view('management');
 });

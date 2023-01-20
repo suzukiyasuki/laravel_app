@@ -35,14 +35,11 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-around mt-2">
-    <div class="row justify-content-around mt-2 col">
-        <button type="button" class="btn btn-primary">削除</button>
+    <div class="mt-2">
+        <div class="row justify-content-around mt-2 col">
+            <a href="/items/edit" class="btn btn-primary">編集</a>
+        </div>
     </div>
-    <div class="row justify-content-around mt-2 col">
-        <button type="button" class="btn btn-primary">編集</button>
-    </div>
-</div>
 </main>
 
 @endsection
