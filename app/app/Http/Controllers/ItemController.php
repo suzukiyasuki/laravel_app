@@ -17,7 +17,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        
+
 
         return view('detail');
     }
@@ -30,15 +30,14 @@ class ItemController extends Controller
     public function create()
     {
         $categories = Category::all();
-        
+
         // $id = Auth::id();
 
         // $params = item::where('user_id', $id)->where('category_id', $id)->get();
-        
-            return view('create_item', [
+
+        return view('create_item', [
             'categories' => $categories,
         ]);
-
     }
 
     /**
@@ -50,21 +49,20 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $item = new item;
-        
+
         $item->amount = $request->amount;
         $item->name = $request->name;
         $item->text = $request->text;
         $item->size = $request->size;
         $item->user_id = $request->user_id;
         $item->category_id = $request->category_id;
-        $path = $request->image->store('images');
+        $path = $request->image->store('public');
         $filename = basename($path);
         $item->image = $filename;
-        
+
         $item->save();
 
-        return redirect('/');
-
+        return redirect('/top');
     }
 
     /**
@@ -75,7 +73,9 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        return view('users');
+        $item = item::find($id);
+
+        return view('detail')->with(['item' => $item]);
     }
 
     /**
@@ -86,8 +86,10 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
+        $item = item::find($id);
+        $categories = Category::all();
 
-        return view('/edit_item');
+        return view('edit_item')->with(['item' => $item, 'categories' => $categories]);
     }
 
     /**
@@ -99,7 +101,19 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = item::find($id);
+        $item->name = $request->name;
+        $item->amount = $request->amount;
+        $item->text = $request->text;
+        $item->size = $request->size;
+        $item->category_id = $request->category_id;
+        $path = $request->image->store('public');
+        $filename = basename($path);
+        $item->image = $filename;
+
+        $item->save();
+
+        return redirect('/items/' . $id);
     }
 
     /**
@@ -110,6 +124,10 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $userId = Auth::id();
+        $item = item::find($id);
+        $item->delete();
+
+        return redirect('/users/' . $userId);
     }
 }

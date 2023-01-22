@@ -1,5 +1,7 @@
 <?php
+
 use App\Http\Controllers\TopController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +12,7 @@ use App\Http\Controllers\TopController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Auth::routes();
 // パスワードリセット
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -17,22 +20,20 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset/{token}', 'Auth\ResetPasswordController@reset');
 
-Route::resource('users', 'UserController', ['only' => ['index', 'edit', 'update', 'destroy']]);
+Route::resource('users', 'UserController', ['only' => ['index', 'show', 'edit', 'update', 'destroy']]);
 Route::resource('items', 'itemController');
 
-Route::get('/', [TopController::class, 'index']);
+Route::get('/top', [TopController::class, 'index']);
+
+Route::get('/cart', [CartController::class, 'index']);
+Route::post('/top/{id}', [CartController::class, 'buy'])->name('buy');
+Route::post('/cart/{id}', [CartController::class, 'complete'])->name('complete');
 
 
 // koredeまずつくる
 
-Route::get('/top_login', function () {
-    return view('top_login');
-});
 Route::get('/like', function () {
     return view('like');
-});
-Route::get('/cart', function () {
-    return view('cart');
 });
 Route::get('/complete', function () {
     return view('complete');
@@ -44,4 +45,3 @@ Route::get('/management', function () {
 Route::get('/management_user', function () {
     return view('management_user');
 });
-

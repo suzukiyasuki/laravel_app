@@ -20,6 +20,11 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    public function item()
+    {
+        return $this->hasMany('App\item');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -38,23 +43,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-        /**
+    /**
 
-    * パスワードリセット通知の送信
+     * パスワードリセット通知の送信
 
-    *
+     *
 
-    * @param string $token
+     * @param string $token
 
-    * @return void
+     * @return void
 
-    */
+     */
 
     public function sendPasswordResetNotification($token)
 
-{
+    {
 
-$this->notify(new ResetPassword($token));
-
-}
+        $this->notify(new ResetPassword($token));
+    }
 }

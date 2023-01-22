@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\item;
 
 class UserController extends Controller
 {
@@ -49,7 +50,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+
+        return view('detail_mypage')->with(['user' => $user]);
     }
 
     /**
