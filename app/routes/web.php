@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\ProductContrller;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,17 +32,13 @@ Route::get('/top', [TopController::class, 'index']);
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/top/{id}', [CartController::class, 'buy'])->name('buy');
 Route::post('/cart/{id}', [CartController::class, 'complete'])->name('complete');
-
-
+Route::post('/top', 'LikeControler@like');
+Route::get('/top/{keyword}', [ProductContrller::class, 'show'])->name('posts.index');
 // koredeまずつくる
 
 Route::get('/like', function () {
     return view('like');
 });
-Route::get('/complete', function () {
-    return view('complete');
-});
-
 Route::get('/management', function () {
     return view('management');
 });

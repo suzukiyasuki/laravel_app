@@ -31,7 +31,8 @@ class CartController extends Controller
     {
         $item = item::where('customer_id', $id)->get();
         foreach ($item as $value) {
-            $value->delete();
+            $value->del_flg = 0;
+            $value->save();
         }
 
         return view('complete');

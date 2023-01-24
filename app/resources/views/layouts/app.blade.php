@@ -22,6 +22,8 @@
     <link href="{{ asset('css/zisaku.css') }}" rel="stylesheet">
 
     <link href="/media/examples/link-element-example.css" rel="stylesheet">
+
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
 
 <body>

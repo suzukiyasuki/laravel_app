@@ -40,18 +40,16 @@
                             <tr>
                                 <th scope='col'>商品名</th>
                                 <th scope='col'>金額</th>
-                                <th scope='col'></th>
                             </tr>
                         </thead>
+                        @foreach($items as $items)
                         <tbody>
                             <tr>
-                                <th scope='col'>
-                                    <a href="">#</a>
-                                </th>
-                                <th scope='col'></th>
-                                <th scope='col'></th>
+                                <th scope='col'>{{ $items->name }}</th>
+                                <th scope='col'>{{ $items->amount }}</th>
                             </tr>
                         </tbody>
+                        @endforeach
                     </table>
                     <table class='table'>
                         <thead>

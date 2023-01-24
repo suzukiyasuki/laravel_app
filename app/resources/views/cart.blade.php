@@ -29,7 +29,7 @@
         </div>
         <div class="d-flex justify-content-center">
             <div class="d-flex justify-content-center col">
-                <button type="button" class="btn btn-secondary">戻る</button>
+                <a href="/top" class="btn btn-secondary">戻る</a>
             </div>
             <form action="/cart/{{ Auth::id() }}" method="POST">
                 @csrf

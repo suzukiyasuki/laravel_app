@@ -11,8 +11,8 @@
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-center mt-5">
-        <button type="button" class="btn btn-primary">トップへ戻る</button>
+    <div class="d-flex justify-content-center col">
+        <a href="/top" class="btn btn-secondary">トップへ戻る</a>
     </div>
 </main>
 

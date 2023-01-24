@@ -47,12 +47,18 @@ class UserController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * del_flg = 0 購入済
+     * del_flg = 1 未購入
      */
+
     public function show($id)
     {
         $user = User::find($id);
 
-        return view('detail_mypage')->with(['user' => $user]);
+        $items = item::where('customer_id', $id)->where('del_flg', 0)->get();
+
+        return view('detail_mypage')->with(['user' => $user, 'items' => $items]);
     }
 
     /**
