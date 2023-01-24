@@ -33,12 +33,8 @@ Route::get('/cart', [CartController::class, 'index']);
 Route::post('/top/{id}', [CartController::class, 'buy'])->name('buy');
 Route::post('/cart/{id}', [CartController::class, 'complete'])->name('complete');
 Route::post('/top', 'LikeControler@like');
-Route::get('/top/{keyword}', [ProductContrller::class, 'show'])->name('posts.index');
 // koredeまずつくる
 
-Route::get('/like', function () {
-    return view('like');
-});
 Route::get('/management', function () {
     return view('management');
 });

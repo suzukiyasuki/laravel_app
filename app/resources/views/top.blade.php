@@ -5,25 +5,23 @@
 <div class="d-flex">
     <aside class="sticky ml-3 h-75 w-25">
         <div class="clearfit">
-            <form action="/top/{{ $keyword }}" method="GET">
+            <form action="/top" method="GET">
                 <div class="input-group mt-5">
                     <input type="text" name="keyword" class="form-control col-md-10" placeholder="キーワードを入力">
                     <button class="btn btn-outline-success" type="submit" id="button-addon2"><i class="fas fa-search"></i> 検索</button>
                 </div>
                 <div class="mt-3">
+                    @foreach($categories as $category)
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">カテゴリー１</label>
+                        <input class="form-check-input" name="category" type="checkbox" value="{{ $category->id }}" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">{{ $category->name }}</label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">カテゴリー２</label>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="row">
                     <div class="mb-3 col-xs-5">
                         <label for="" class="form-label">サイズ</label>
-                        <select name="" class="form-control">
+                        <select name="size" class="form-control">
                             @foreach(SizeListConst::SIZE_LIST as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach
