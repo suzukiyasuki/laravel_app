@@ -26,7 +26,7 @@
                             <table class='table'>
                                 <thead>
                                     <tr>
-                                        <th class='text-center' scope='col'>金額：{{ $item['amount'] }}</th>
+                                        <th class='text-center' scope='col'>金額：{{ $item['amount'] }} 円</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,13 +45,14 @@
                 @csrf
                 <button type="submit" class="btn btn-danger">削除</button>
             </form>
-            @endif
             <a href="/items/{{ $item->id }}/edit" class="btn btn-primary">編集</a>
+            @endif
+            @guest(Auth::id() == $item->user_id)
             <form action="/count/{{ $item->user_id }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-danger">報告</button>
             </form>
-
+            @endguest
         </div>
     </div>
 </main>

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-@section('content')
 @if ($errors->any())
 <div>
     <ul>

@@ -43,6 +43,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $item['name'] }}</h5>
                         <p class="card-text">{{ $item['text'] }}</p>
+                        <p class="card-text">{{ $item['amount'] }}</p>
                         @auth
                         @if(isset($item->like[0]))
                         <a class="toggle_wish" item_id="{{ $item['id']}}" like="1">
@@ -75,7 +76,4 @@
         <p class="text-muted">Place sticky footer content here.</p>
     </div>
 </footer>
-
-<div><a href="/management_user">管理者専用ユーザーページ</a></div>
-
 @endsection
