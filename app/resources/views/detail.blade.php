@@ -47,6 +47,11 @@
             </form>
             @endif
             <a href="/items/{{ $item->id }}/edit" class="btn btn-primary">編集</a>
+            <form action="/count/{{ $item->user_id }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger">報告</button>
+            </form>
+
         </div>
     </div>
 </main>

@@ -10,6 +10,7 @@
                         <tr>
                             <th scope='col'>詳細</th>
                             <th scope='col'>商品</th>
+                            <th scope='col'>金額</th>
                             <th scope='col'>取り消し</th>
                         </tr>
                     </thead>
@@ -18,12 +19,19 @@
                         <tr>
                             <th scope='col'><a href="/items/{{ $value['id'] }}">#</a></th>
                             <th scope='col'>{{ $value->name }}</th>
+                            <th scope='col'>{{ $value->amount }}</th>
                             <th scope='col'>
-                                <a href="">#</a>
+                                <form action="/cart/{{$value->id}}/remove" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">取り消し</button>
+                                </form>
                             </th>
                         </tr>
                     </tbody>
                     @endforeach
+                    <td class="border-bottom-0 align-middle">
+                        合計金額：{{ $Sum }}円
+                    </td>
                 </table>
             </div>
         </div>

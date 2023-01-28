@@ -48,17 +48,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      * 
-     * del_flg = 0 購入済
-     * del_flg = 1 未購入
+     * del_flg = 0 未購入
+     * del_flg = 1 購入済
      */
 
     public function show($id)
     {
         $user = User::find($id);
 
-        $items = item::where('customer_id', $id)->where('del_flg', 0)->get();
+        $items = item::where('customer_id', $id)->where('del_flg', 1)->get();
 
-        return view('detail_mypage')->with(['user' => $user, 'items' => $items]);
+        $itemSum = $items->sum('amount');
+
+        return view('detail_mypage')->with(['user' => $user, 'items' => $items, 'Sum' => $itemSum]);
     }
 
     /**
@@ -82,6 +84,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+
+        ]);
+
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -103,5 +111,18 @@ class UserController extends Controller
         $user->delete();
 
         return redirect('/top');
+    }
+
+    public function post(Request $request)
+    {
+        $validate_rule = [
+            'name' => 'required',
+            'email' => 'email|required',
+            'password' => 'required',
+            'password_confirmation' => 'required',
+        ];
+
+        $this->validate($request, $validate_rule);
+        return view('/', ['msg' => '正しく入力されました']);
     }
 }

@@ -48,6 +48,13 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'amount' => 'required',
+            'text' => 'required',
+            'image' => 'required',
+        ]);
+
         $item = new item;
 
         $item->amount = $request->amount;
@@ -101,6 +108,13 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'amount' => 'required',
+            'text' => 'required',
+            'image' => 'required',
+        ]);
+
         $item = item::find($id);
         $item->name = $request->name;
         $item->amount = $request->amount;
@@ -129,5 +143,14 @@ class ItemController extends Controller
         $item->delete();
 
         return redirect('/users/' . $userId);
+    }
+    public function post(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'amount' => 'required',
+            'text' => 'required',
+            'image' => 'required',
+        ]);
     }
 }

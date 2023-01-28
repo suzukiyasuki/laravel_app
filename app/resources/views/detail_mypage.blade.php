@@ -54,7 +54,7 @@
                     <table class='table'>
                         <thead>
                             <tr>
-                                <th class='text-center' scope='col'>購入合計:</th>
+                                <th class='text-center' scope='col'>購入合計:{{ $Sum }}</th>
                             </tr>
                         </thead>
                         <tbody>

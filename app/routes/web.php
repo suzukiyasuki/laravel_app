@@ -32,12 +32,8 @@ Route::get('/top', [TopController::class, 'index']);
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/top/{id}', [CartController::class, 'buy'])->name('buy');
 Route::post('/cart/{id}', [CartController::class, 'complete'])->name('complete');
+Route::post('/cart/{id}/remove', [CartController::class, 'remove']);
 Route::post('/top', 'LikeControler@like');
-// koredeまずつくる
-
-Route::get('/management', function () {
-    return view('management');
-});
-Route::get('/management_user', function () {
-    return view('management_user');
-});
+Route::get('/admin/{id}', [TopController::class, 'role']);
+Route::post('/count/{id}', [TopController::class, 'count']);
+Route::post('/admin/{id}/delete', [TopController::class, 'destory']);

@@ -2,16 +2,32 @@
 
 @section('content')
 <main class="container mt-5">
-    <div class="justify-content-center ">
+    <div class="justify-content-center">
         <div class="card center-block">
-            <div class="row">
-                <div class="d-flex justify-content-center col">
-                    <p>ユーザー情報一覧</p>
-                </div>
-                <div class="d-flex justify-content-center col">
-                    <a href="">ユーザー削除</a>
-                </div>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ユーザー情報</th>
+                        <th>ユーザー削除</th>
+                    </tr>
+                </thead>
+                @foreach($user as $users)
+
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>{{ $users->name }}</p>
+                        </td>
+                        <td>
+                            <form action="/admin/{{ $users->id }}/delete" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">ユーザー削除</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+                @endforeach
+            </table>
         </div>
     </div>
 </main>

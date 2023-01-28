@@ -12,6 +12,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/sample.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,6 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <link href="{{ asset('css/zisaku.css') }}" rel="stylesheet">
 
     <link href="/media/examples/link-element-example.css" rel="stylesheet">
@@ -71,6 +74,9 @@
                                 </form>
                                 <a class="dropdown-item" href="/users/{{ Auth::id() }}">マイページ</a>
                                 <a class="dropdown-item" href="/items/create">商品投稿</a>
+                                @if (Auth::user()->role == 1)
+                                <a class="dropdown-item" href="/admin/{{ Auth::id() }}">ユーザー管理</a>
+                                @endif
                             </div>
                         </li>
                         @endguest

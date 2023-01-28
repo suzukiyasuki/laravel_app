@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+@if ($errors->any())
+<div>
+    <ul>
+        @foreach ($errors->all() as $error )
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 <main class="justify-content-center row mt-3">
     <form action="{{ route('items.store') }}" method="post" enctype='multipart/form-data'>
         @csrf
