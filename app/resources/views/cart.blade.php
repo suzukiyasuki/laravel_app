@@ -18,7 +18,6 @@
                     <tbody>
                         <tr>
                             <th scope='col'><a href="/items/{{ $value['id'] }}">#</a></th>
-
                             <th scope='col'>{{ $value->name }}</th>
                             <th scope='col'>{{ $value->amount }}</th>
                             <th scope='col'>

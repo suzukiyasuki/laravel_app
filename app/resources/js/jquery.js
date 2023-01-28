@@ -2,7 +2,7 @@
 $(function ()
 {
     //「toggle_wish」というクラスを持つタグがクリックされたときに以下の処理が走る
-    $('.toggle_wish').on('click', function ()
+    $('.toggle').on('click', function ()
     {
         //表示しているプロダクトのIDと状態、押下し他ボタンの情報を取得
         item_id = $(this).attr("item_id");

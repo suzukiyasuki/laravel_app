@@ -46,13 +46,12 @@
                 <button type="submit" class="btn btn-danger">削除</button>
             </form>
             <a href="/items/{{ $item->id }}/edit" class="btn btn-primary">編集</a>
-            @endif
-            @guest(Auth::id() == $item->user_id)
+            @elseif(Auth::id() != $item->user_id)
             <form action="/count/{{ $item->user_id }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-danger">報告</button>
             </form>
-            @endguest
+            @endif
         </div>
     </div>
 </main>

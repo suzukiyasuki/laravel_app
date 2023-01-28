@@ -18,22 +18,30 @@ use App\Http\Controllers\ProductContrller;
 */
 
 Auth::routes();
-// パスワードリセット
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('password/reset/{token}', 'Auth\ResetPasswordController@reset');
+//一般ユーザー
+Route::group(['middleware' => ['auth', 'can:user']], function () {
+    //ここにルートを記述
+    // パスワードリセット
+    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset/{token}', 'Auth\ResetPasswordController@reset');
+    Route::resource('users', 'UserController', ['only' => ['index', 'show', 'edit', 'update', 'destroy']]);
+    Route::resource('items', 'itemController');
 
-Route::resource('users', 'UserController', ['only' => ['index', 'show', 'edit', 'update', 'destroy']]);
-Route::resource('items', 'itemController');
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/top/{id}', [CartController::class, 'buy'])->name('buy');
+    Route::post('/cart/{id}', [CartController::class, 'complete'])->name('complete');
+    Route::post('/cart/{id}/remove', [CartController::class, 'remove']);
+    Route::post('/top', 'LikeControler@like');
+    Route::post('/count/{id}', [TopController::class, 'count']);
+});
+
+// 管理者以上
+Route::group(['middleware' => ['auth', 'can:admin']], function () {
+    //ここにルートを記述
+    Route::get('/admin/{id}', [TopController::class, 'role']);
+    Route::post('/admin/{id}/delete', [TopController::class, 'destory']);
+});
 
 Route::get('/top', [TopController::class, 'index']);
-
-Route::get('/cart', [CartController::class, 'index']);
-Route::post('/top/{id}', [CartController::class, 'buy'])->name('buy');
-Route::post('/cart/{id}', [CartController::class, 'complete'])->name('complete');
-Route::post('/cart/{id}/remove', [CartController::class, 'remove']);
-Route::post('/top', 'LikeControler@like');
-Route::get('/admin/{id}', [TopController::class, 'role']);
-Route::post('/count/{id}', [TopController::class, 'count']);
-Route::post('/admin/{id}/delete', [TopController::class, 'destory']);

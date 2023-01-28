@@ -112,7 +112,6 @@ class ItemController extends Controller
             'name' => 'required',
             'amount' => 'required',
             'text' => 'required',
-            'image' => 'required',
         ]);
 
         $item = item::find($id);
@@ -121,9 +120,11 @@ class ItemController extends Controller
         $item->text = $request->text;
         $item->size = $request->size;
         $item->category_id = $request->category_id;
-        $path = $request->image->store('public');
-        $filename = basename($path);
-        $item->image = $filename;
+        if (!empty($request->image)) {
+            $path = $request->image->store('public');
+            $filename = basename($path);
+            $item->image = $filename;
+        }
 
         $item->save();
 
