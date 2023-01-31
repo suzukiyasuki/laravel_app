@@ -3,48 +3,75 @@
 @section('content')
 
 <div class="d-flex">
-    <aside class="sticky ml-3 h-75 w-25">
+    <aside class="sticky ml-3 h-75" style="width: 450px;">
         <div class="clearfit">
             <form action="/top" method="GET">
                 <div class="input-group mt-5">
-                    <input type="text" name="keyword" class="form-control col-md-10" placeholder="キーワードを入力">
+                    <input type="text" name="keyword" class="form-control" placeholder="キーワードを入力">
                     <button class="btn btn-outline-success" type="submit" id="button-addon2"><i class="fas fa-search"></i> 検索</button>
                 </div>
-                <div class="mt-3">
+                <div class="input-group mb-3 mt-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">サイズ</label>
+                    </div>
+                    <select name="size" class="custom-select" id="inputGroupSelect01">
+                        @foreach(SizeListConst::SIZE_LIST as $key => $value)
+                        <option value="{{ $key }}">{{ $value }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mt-3 ml-3">
+                    <div class="">シーンで探す</div>
                     @foreach($categories as $category)
                     <div class="form-check">
-                        <input class="form-check-input" name="category" type="checkbox" value="{{ $category->id }}" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">{{ $category->name }}</label>
+                        <input class="form-check-input" name="category" type="checkbox" value="{{ $category->id }}" id="flexCheckDefault{{ $category->id }}">
+                        <label class="form-check-label" for="flexCheckDefault{{ $category->id }}">{{ $category->name }}</label>
                     </div>
                     @endforeach
                 </div>
-                <div class="row">
-                    <div class="mb-3 col-xs-5">
-                        <label for="" class="form-label">サイズ</label>
-                        <select name="size" class="form-control">
-                            @foreach(SizeListConst::SIZE_LIST as $key => $value)
-                            <option value="{{ $key }}">{{ $value }}</option>
-                            @endforeach
-                        </select>
+                <div class="text-center mt-5">
+                    <a href="/cart" class="btn btn-warning">カート内</a>
+                    <div class="panel-body card-body mx-auto text-center" style="width:200px;">
+                        @if(session('message'))
+                        <div class="alert alert-danger">
+                            <div>{{ session('message') }}</div>
+                        </div>
+                        @endif
                     </div>
-                </div>
-                <div class="mt-5">
-                    <a href="/cart" class="btn btn-outline-secondary">カート内</a>
                 </div>
             </form>
         </div>
     </aside>
     <main class="justify-content-around border-left ml-3 mt-3 pl-5">
-        <div class="clearfit mt-3">
+        <div class="mt-3">
             <div class="d-flex justify-content-around flex-wrap m-4">
                 @foreach($items as $item)
                 <div class="card mt-3" style="width: 18rem;">
-                    <img class="h-50" src="{{ asset('storage/' . $item['image']) }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $item['name'] }}</h5>
-                        <p class="card-text">{{ $item['text'] }}</p>
-                        <p class="card-text">{{ SizeListConst::SIZE_LIST[$item['size']] }}</p>
-                        <p class="card-text">{{ $item['amount'] }}</p>
+                    <img class="h-65" src="{{ asset('storage/' . $item['image']) }}">
+                    <div class="card-body" style="height: 230px;">
+                        <h5 class="card-title">ITEM: {{ $item['name'] }}</h5>
+                        <div class="d-flex">
+                            <p class="card-text">SIZE: {{ SizeListConst::SIZE_LIST[$item['size']] }}</p>
+                            <span class="mr-3 ml-3">/</span>
+                            @switch($item['category_id'])
+                            @case(1)
+                            <p class="card-text">SCENE: カジュアル</p>
+                            @break
+                            @case(2)
+                            <p class="card-text">SCENE: ビジネス</p>
+                            @break
+                            @case(3)
+                            <p class="card-text">SCENE: フォーマル</p>
+                            @break
+                            @case(4)
+                            <p class="card-text">SCENE: スポーツ</p>
+                            @break
+                            @case(5)
+                            <p class="card-text">SCENE: ルームウェア</p>
+                            @break
+                            @endswitch
+                        </div>
+                        <p class="card-text">¥ {{ $item['amount'] }} -</p>
                         @auth
                         @if(isset($item->like[0]))
                         <a class="toggle" item_id="{{ $item['id']}}" like="1">
@@ -57,7 +84,7 @@
                         @endif
                         @endauth
                         <div class="row justify-content-around mt-2">
-                            <a href="/items/{{ $item['id'] }}" class="btn btn-primary">商品の詳細</a>
+                            <a href="/items/{{ $item['id'] }}" class="btn btn-outline-primary">商品の詳細</a>
                             @if($item['user_id'] != Auth::id())
                             <form action="{{ route('buy' , ['id' => $item['id']]) }}" method="post">
                                 @csrf

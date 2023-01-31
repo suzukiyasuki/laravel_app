@@ -9,7 +9,7 @@
                     <table class='table'>
                         <thead>
                             <tr>
-                                <th scope='col'>{{ $user->name }}</th>
+                                <th scope='col' class="text-center">{{ $user->name }}</th>
                             </tr>
                         </thead>
                     </table>
@@ -18,13 +18,7 @@
         </div>
     </div>
 
-    <form action="/users/{{ Auth::id() }}" method="POST">
-        @method('DELETE')
-        @csrf
-        <div class="row justify-content-around mt-2">
-            <button type="submit" class="btn btn-danger">退会</button>
-        </div>
-    </form>
+
     <div class="row justify-content-around mt-2">
         <a href="{{ route('users.edit', ['user' => Auth::id()]) }}" class="btn btn-primary">編集</a>
     </div>
@@ -46,7 +40,7 @@
                         <tbody>
                             <tr>
                                 <th scope='col'>{{ $items->name }}</th>
-                                <th scope='col'>{{ $items->amount }}</th>
+                                <th scope='col'>{{ $items->amount }} 円</th>
                             </tr>
                         </tbody>
                         @endforeach
@@ -54,7 +48,7 @@
                     <table class='table'>
                         <thead>
                             <tr>
-                                <th class='text-center' scope='col'>購入合計:{{ $Sum }}</th>
+                                <th class='text-center' scope='col'>購入合計:{{ $Sum }} 円</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,7 +77,7 @@
                                     <th scope='col'>
                                         {{ $item->name }}
                                     </th>
-                                    <th scope='col'>{{ $item->amount }}</th>
+                                    <th scope='col'>{{ $item->amount }} 円</th>
                                     <th scope='col'>
                                         <a href="/items/{{ $item['id'] }}">#</a>
                                     </th>
@@ -96,5 +90,12 @@
             </div>
         </div>
     </div>
+    <form action="/users/{{ Auth::id() }}" method="POST">
+        @method('DELETE')
+        @csrf
+        <div class="row justify-content-around mt-2">
+            <button type="submit" class="btn btn-outline-danger">退会</button>
+        </div>
+    </form>
 </main>
 @endsection

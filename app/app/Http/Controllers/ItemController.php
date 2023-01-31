@@ -52,6 +52,8 @@ class ItemController extends Controller
             'name' => 'required',
             'amount' => 'required',
             'text' => 'required',
+            'category_id' => 'required',
+            'size' => 'required',
             'image' => 'required',
         ]);
 
@@ -112,6 +114,8 @@ class ItemController extends Controller
             'name' => 'required',
             'amount' => 'required',
             'text' => 'required',
+            'category_id' => 'required',
+            'size' => 'required',
         ]);
 
         $item = item::find($id);
@@ -151,6 +155,8 @@ class ItemController extends Controller
             'name' => 'required',
             'amount' => 'required',
             'text' => 'required',
+            'category_id' => 'required',
+            'size' => 'required',
             'image' => 'required',
         ]);
     }

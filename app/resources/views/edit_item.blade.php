@@ -1,16 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-@section('content')
-@if ($errors->any())
-<div>
-    <ul>
-        @foreach ($errors->all() as $error )
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
+<div class="panel-body card-body mx-auto text-center" style="width:500px;">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error )
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 </div>
-@endif
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

@@ -25,7 +25,9 @@ class CartController extends Controller
 
         $item->save();
 
-        return redirect('/top');
+        \Session::flash('message', 'カートに商品を追加しました');
+
+        return redirect('/top')->with('message', 'カートに商品が追加されました。');
     }
 
     public function complete($id)

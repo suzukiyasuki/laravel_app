@@ -47,7 +47,7 @@ class TopController extends Controller
 
     public function role($id)
     {
-        $user = User::where('role', 0)->where('counts', '>=', 5)->get();;
+        $user = User::where('role', 0)->where('counts', '>=', 5)->get();
 
 
         return view('management_user', ['user' => $user]);
@@ -70,6 +70,8 @@ class TopController extends Controller
     {
         $user = User::find($id);
         $user->delete();
+        $item = item::where('user_id', $id);
+        $item->delete();
 
         return redirect('/top');
     }

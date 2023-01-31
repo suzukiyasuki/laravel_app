@@ -1,15 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-@if ($errors->any())
-<div>
-    <ul>
-        @foreach ($errors->all() as $error )
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
+<div class="panel-body card-body mx-auto text-center" style="width:500px;">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error )
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 </div>
-@endif
 <main class="justify-content-center row mt-3">
     <form action="{{ route('items.store') }}" method="post" enctype='multipart/form-data'>
         @csrf
@@ -17,13 +19,13 @@
         <div class="row">
             <div class="mb-3 col-xs-5">
                 <label for="" class="form-label">商品名</label>
-                <input name="name" type="name" class="form-control" id="" aria-describedby="emailHelp">
+                <input name="name" type="name" class="form-control" id="" value="{{ old('name') }}" aria-describedby="emailHelp">
             </div>
         </div>
         <div class="row">
             <div class="mb-3 col-xs-5">
                 <label for="" class="form-label">金額</label>
-                <input name="amount" type="amount" class="form-control" id="">
+                <input name="amount" type="amount" class="form-control" id="" value="{{ old('amount') }}">
             </div>
         </div>
         <div class="row">
@@ -50,13 +52,13 @@
         <div class="row">
             <div class="mb-3 col-xs-5">
                 <label for="" class="form-label">商品情報</label>
-                <input name="text" type="text" class="form-control" id="">
+                <input name="text" type="text" class="form-control" id="" value="{{ old('text') }}">
             </div>
         </div>
         <div class="row">
             <div class="mb-3 col-xs-5">
                 <label for="" class="form-label d-block">写真を追加</label>
-                <input type="file" name="image" accept=".png, .jpg, .jpeg, .HEIC">
+                <input type="file" name="image" accept=".png, .jpg, .jpeg, .HEIC" value="{{ old('image') }}">
             </div>
         </div>
         <div class="row">

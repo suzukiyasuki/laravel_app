@@ -23,7 +23,7 @@
                             <th scope='col'>
                                 <form action="/cart/{{$value->id}}/remove" method="post">
                                     @csrf
-                                    <button type="submit" class="btn btn-danger">取り消し</button>
+                                    <button type="submit" class="btn btn-outline-danger">取り消し</button>
                                 </form>
                             </th>
                         </tr>
