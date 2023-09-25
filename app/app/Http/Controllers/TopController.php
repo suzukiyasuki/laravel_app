@@ -6,29 +6,26 @@ use Illuminate\Http\Request;
 use App\item;
 use App\Category;
 use App\User;
+use App\Services\TopServices;
+
 
 class TopController extends Controller
 {
+    private $topServices;
+
+    public function __construct(TopServices $topServices)
+    {
+        $this->topServices = $topServices;
+    }
+
     public function index(Request $request)
     {
-
         $keyword = $request->input('keyword');
         $size = $request->input('size');
         $category = $request->input('category');
 
-        $query = item::query();
+        $items = $this->topServices->getItemList($keyword, $size, $category);
 
-        if (!empty($keyword)) {
-            $query->where('name', 'LIKE', "%{$keyword}%")->orWhere('text', 'LIKE', "%{$keyword}%");
-        }
-        if (!empty($size)) {
-            $query->where('size', 'LIKE', "%{$size}%");
-        }
-        if (!empty($category)) {
-            $query->where('category_id', 'LIKE', "%{$category}%");
-        }
-
-        $items = $query->where('del_flg', 0)->get();
         $categories = Category::all();
 
         return view('top', compact('items', 'keyword', 'categories'));

@@ -3,13 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\item;
 use App\Category;
 use Illuminate\Support\Facades\Storage;
+use App\Services\ItemServices;
+use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+    private $itemServices;
+
+    public function __construct(ItemServices $itemServices)
+    {
+        $this->itemServices = $itemServices;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +25,6 @@ class ItemController extends Controller
      */
     public function index()
     {
-
-
         return view('detail');
     }
 
@@ -42,10 +48,8 @@ class ItemController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -57,19 +61,7 @@ class ItemController extends Controller
             'image' => 'required',
         ]);
 
-        $item = new item;
-
-        $item->amount = $request->amount;
-        $item->name = $request->name;
-        $item->text = $request->text;
-        $item->size = $request->size;
-        $item->user_id = $request->user_id;
-        $item->category_id = $request->category_id;
-        $path = $request->image->store('public');
-        $filename = basename($path);
-        $item->image = $filename;
-
-        $item->save();
+        $this->itemServices->storeItem($request);
 
         return redirect('/top');
     }
@@ -118,19 +110,7 @@ class ItemController extends Controller
             'size' => 'required',
         ]);
 
-        $item = item::find($id);
-        $item->name = $request->name;
-        $item->amount = $request->amount;
-        $item->text = $request->text;
-        $item->size = $request->size;
-        $item->category_id = $request->category_id;
-        if (!empty($request->image)) {
-            $path = $request->image->store('public');
-            $filename = basename($path);
-            $item->image = $filename;
-        }
-
-        $item->save();
+        $this->itemServices->updateItem($request, $id);
 
         return redirect('/items/' . $id);
     }

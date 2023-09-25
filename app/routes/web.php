@@ -18,6 +18,9 @@ use App\Http\Controllers\ProductContrller;
 */
 
 Auth::routes();
+Route::get('', function () {
+    return redirect('/top');
+});
 //一般ユーザー
 Route::group(['middleware' => ['auth', 'can:user']], function () {
     //ここにルートを記述
@@ -30,10 +33,10 @@ Route::group(['middleware' => ['auth', 'can:user']], function () {
     Route::resource('items', 'itemController');
 
     Route::get('/cart', [CartController::class, 'index']);
-    Route::post('/top/{id}', [CartController::class, 'buy'])->name('buy');
     Route::post('/cart/{id}', [CartController::class, 'complete'])->name('complete');
     Route::post('/cart/{id}/remove', [CartController::class, 'remove']);
     Route::post('/top', 'LikeControler@like');
+    Route::post('/add-cart', 'CartController@buy');
     Route::post('/count/{id}', [TopController::class, 'count']);
 });
 

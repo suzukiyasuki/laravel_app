@@ -8,6 +8,8 @@ $(function ()
         item_id = $(this).attr("item_id");
         like = $(this).attr("like");
         click_button = $(this);
+        id = $(this),attr("id");
+        buy = $(this),attr("buy");
 
         $.ajax({
             headers: {
@@ -41,5 +43,22 @@ $(function ()
                 alert('いいね処理失敗');
                 alert(JSON.stringify(data));
             });
+    });
+    $('.item').on('click', function ()
+    {
+        alert('a');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')  //基本的にはデフォルトでOK
+            },
+            url: '/add-cart', 
+            type: 'POST',
+            date: { 'id': id, 'buy': buy, },
+        })
+
+        .done(function (message)
+        {
+            console.log(message.json())
+        })
     });
 });

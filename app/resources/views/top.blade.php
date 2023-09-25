@@ -86,10 +86,7 @@
                         <div class="row justify-content-around mt-2">
                             <a href="/items/{{ $item['id'] }}" class="btn btn-outline-primary">商品の詳細</a>
                             @if($item['user_id'] != Auth::id())
-                            <form action="{{ route('buy' , ['id' => $item['id']]) }}" method="post">
-                                @csrf
-                                <button type="submit" class="btn btn-primary">カートに追加</button>
-                            </form>
+                            <button id="{{ $item['id'] }}" type="button" class="item btn btn-primary">カートに追加</button>
                             @endif
                         </div>
                     </div>
@@ -102,12 +99,14 @@
 
 <script>
     $(function() {
+        console.log($('meta[name="csrf-token"]').attr('content'))
         //「toggle_wish」というクラスを持つタグがクリックされたときに以下の処理が走る
         $('.toggle').on('click', function() {
             //表示しているプロダクトのIDと状態、押下し他ボタンの情報を取得
             item_id = $(this).attr("item_id");
             like = $(this).attr("like");
             click_button = $(this);
+
 
             $.ajax({
                     headers: {
@@ -141,6 +140,35 @@
                     alert('いいね処理失敗');
                     alert(JSON.stringify(data));
                 });
+        });
+        $('.item').on('click', function() {
+            id = $(this).attr("id");
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'), //基本的にはデフォルトでOK
+                    'Content-Type': 'application/json'
+                },
+                url: '/add-cart',
+                type: 'POST',
+
+                data: {
+                    id: id,
+                },
+                dataType: 'json'
+
+            })
+            var form = new FormData();
+            form.append($(this).val('id'));
+
+            data: form
+
+                .done(function(message) {
+                    console.log(message)
+                })
+                .fail(function(error) {
+                    alert(JSON.stringify(error))
+                })
+
         });
     });
 </script>

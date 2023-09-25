@@ -17,17 +17,17 @@ class CartController extends Controller
         return view('cart')->with(['item' => $item, 'Sum' => $itemSum]);
     }
 
-    public function buy($id)
+    public function buy()
     {
-        $item = item::find($id);
+        $request = request();
+        $item = item::find(1);
+        logger()->info($$request['id']);
 
         $item->customer_id = Auth::id();
 
         $item->save();
 
-        \Session::flash('message', 'カートに商品を追加しました');
-
-        return redirect('/top')->with('message', 'カートに商品が追加されました。');
+        return response()->json('カートに商品が追加されました。');
     }
 
     public function complete($id)
